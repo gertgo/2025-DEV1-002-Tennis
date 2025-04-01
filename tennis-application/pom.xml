@@ -49,10 +49,10 @@
         </dependency>
 
         <dependency>
-            <groupId>be.bnp</groupId>
+            <groupId>com.bnp</groupId>
             <artifactId>tennis-repository</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>test</scope>
+<!--            <scope>test</scope>-->
         </dependency>
     </dependencies>
 

@@ -1,6 +1,6 @@
-package com.bnp.tennis.rest.dto;
+package com.bnp.tennis.service.model;
 
-public class TennisGameDto {
+public class TennisGame {
     private Long id;
 
     public Long getId() {

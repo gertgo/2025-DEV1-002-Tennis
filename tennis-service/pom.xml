@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.bnp</groupId>
-    <artifactId>tennis-rest</artifactId>
+    <artifactId>tennis-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>tennis-rest</name>
-    <description>tennis-rest</description>
+    <name>tennis-service</name>
+    <description>tennis-service</description>
     <url/>
     <licenses>
         <license/>
@@ -32,7 +32,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -43,7 +43,7 @@
 
         <dependency>
             <groupId>com.bnp</groupId>
-            <artifactId>tennis-service</artifactId>
+            <artifactId>tennis-repository</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

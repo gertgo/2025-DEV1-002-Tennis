@@ -18,6 +18,8 @@
     <modules>
         <module>tennis-application</module>
         <module>tennis-rest</module>
+        <module>tennis-service</module>
+        <module>tennis-repository</module>
     </modules>
 
     <url/>

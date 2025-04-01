@@ -17,8 +17,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
-@EnableJpaRepositories(basePackages = "com.bnp.tennis.repository.client")
-@EntityScan(basePackages = "com.bnp.tennis.repository.model")
+//@EnableJpaRepositories(basePackages = "com.bnp.tennis.repository.client")
+//@EntityScan(basePackages = "com.bnp.tennis.repository.model")
 @Transactional
 public class TennisServiceImplTest {
     @Autowired
@@ -30,7 +30,7 @@ public class TennisServiceImplTest {
     @Test
     public void testStartNewGame() {
         var gameId = this.restTemplate.postForObject(
-            "/api/ui/tennis/newGame",
+            "/api/tennis/newGame",
             new TennisGameDto(),
             TennisGameDto.class);
 
