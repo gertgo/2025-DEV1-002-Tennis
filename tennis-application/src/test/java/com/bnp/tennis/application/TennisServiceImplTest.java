@@ -10,6 +10,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -83,8 +85,37 @@ public class TennisServiceImplTest {
             softly.assertThat(game.getPlayer2().getScore()).isEqualTo(0);
 
             var savedGame = tennisRepository.findById(game.getId());
-            softly.assertThat(game.getPlayer1().getScore()).isEqualTo(0);
-            softly.assertThat(game.getPlayer2().getScore()).isEqualTo(0);
+            softly.assertThat(savedGame.get().getPlayer1().getScore()).isEqualTo(0);
+            softly.assertThat(savedGame.get().getPlayer2().getScore()).isEqualTo(0);
+        });
+    }
+
+    @Test
+    public void testScorePoint() {
+        //start game
+        TennisGameDto request = new TennisGameDto();
+        TennisPlayerDto player1 = new TennisPlayerDto();
+        player1.setName("player1");
+        request.setPlayer1(player1);
+        TennisPlayerDto player2 = new TennisPlayerDto();
+        player2.setName("player2");
+        request.setPlayer2(player2);
+
+        var game = this.restTemplate.postForObject(
+            "/api/tennis/newGame",
+            request,
+            TennisGameDto.class);
+
+        // score point
+        var gameAfterPoint = this.restTemplate.exchange(
+            "/api/tennis/" + game.getId() + "/scorePoint/" + game.getPlayer1().getId(),
+            HttpMethod.PUT,
+            new HttpEntity<>(request),
+            TennisGameDto.class
+        ).getBody();
+
+        SoftAssertions.assertSoftly(softly -> {
+            softly.assertThat(gameAfterPoint.getPlayer1().getScore()).isEqualTo(15);
         });
     }
 }
