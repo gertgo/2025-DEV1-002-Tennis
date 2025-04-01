@@ -4,7 +4,9 @@ import com.bnp.tennis.rest.mapper.TennisGameDtoMapper;
 import com.bnp.tennis.rest.dto.TennisGameDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +29,13 @@ public class TennisController {
             mapper.toDto(
                 tennisService.createGame(
                     mapper.toModel(gameDto))));
+    }
+
+    @PutMapping("{gameId}/scorePoint/{playerId}")
+    public ResponseEntity<TennisGameDto> scorePoint(@PathVariable Long gameId, @PathVariable Long playerId) {
+        return ResponseEntity.ok(
+            mapper.toDto(
+                tennisService.scorePoint(gameId, playerId)));
     }
 
     @GetMapping("/score")
