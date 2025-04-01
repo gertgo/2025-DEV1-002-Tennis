@@ -29,9 +29,12 @@ public class TennisServiceImplTest {
 
     @Test
     public void testStartNewGame() {
-        var gameId = this.restTemplate.getForEntity("/api/ui/tennis/newGame", TennisGameDto.class);
+        var gameId = this.restTemplate.postForObject(
+            "/api/ui/tennis/newGame",
+            new TennisGameDto(),
+            TennisGameDto.class);
 
-        var game = tennisRepository.findById(gameId.getBody().getId());
+        var game = tennisRepository.findById(gameId.getId());
         assertThat(game).isNotEmpty();
     }
 }
