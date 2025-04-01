@@ -48,7 +48,7 @@ public class TennisServiceImplTest {
         request.setPlayer1(player1);
         TennisPlayerDto player2 = new TennisPlayerDto();
         player2.setName("player2");
-        request.setPlayer1(player2);
+        request.setPlayer2(player2);
 
         var game = this.restTemplate.postForObject(
             "/api/tennis/newGame",

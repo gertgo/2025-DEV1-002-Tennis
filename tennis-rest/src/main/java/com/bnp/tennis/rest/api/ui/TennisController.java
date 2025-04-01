@@ -1,6 +1,6 @@
 package com.bnp.tennis.rest.api.ui;
 
-import com.bnp.tennis.rest.TennisGameDtoMapper;
+import com.bnp.tennis.rest.mapper.TennisGameDtoMapper;
 import com.bnp.tennis.rest.dto.TennisGameDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
