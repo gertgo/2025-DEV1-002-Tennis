@@ -10,6 +10,8 @@ public class TennisPlayerDtoMapper {
         TennisPlayerDto dto = new TennisPlayerDto();
         dto.setId(tennisPlayer.getId());
         dto.setName(tennisPlayer.getName());
+        dto.setScore(tennisPlayer.getScore());
+        dto.setAdvantage(tennisPlayer.getAdvantage());
         return dto;
     }
 
@@ -17,6 +19,8 @@ public class TennisPlayerDtoMapper {
         TennisPlayer model = new TennisPlayer();
         model.setId(entity.getId());
         model.setName(entity.getName());
+        model.setScore(entity.getScore());
+        model.setAdvantage(entity.getAdvantage());
         return model;
     }
 }

@@ -19,8 +19,15 @@ public class TennisServiceImpl implements TennisService {
 
     @Override
     public TennisGame createGame(TennisGame tennisGame) {
+        initScores(tennisGame);
+
         return mapper.toModel(
             tennisRepository.save(
                 mapper.toEntity(tennisGame)));
+    }
+
+    private void initScores(TennisGame tennisGame) {
+        tennisGame.getPlayer1().setScore(0);
+        tennisGame.getPlayer2().setScore(0);
     }
 }

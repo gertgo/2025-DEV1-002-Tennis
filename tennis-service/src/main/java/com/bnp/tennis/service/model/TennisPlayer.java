@@ -3,6 +3,8 @@ package com.bnp.tennis.service.model;
 public class TennisPlayer {
     private Long id;
     private String name;
+    private Integer score;
+    private Boolean advantage;
 
     public Long getId() {
         return id;
@@ -18,5 +20,21 @@ public class TennisPlayer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Boolean getAdvantage() {
+        return advantage;
+    }
+
+    public void setAdvantage(Boolean advantage) {
+        this.advantage = advantage;
     }
 }

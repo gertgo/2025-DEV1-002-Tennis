@@ -11,6 +11,8 @@ public class TennisPlayerEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    private Integer score;
+    private Boolean advantage;
 
     public Long getId() {
         return id;
@@ -26,5 +28,21 @@ public class TennisPlayerEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public Boolean getAdvantage() {
+        return advantage;
+    }
+
+    public void setAdvantage(Boolean advantage) {
+        this.advantage = advantage;
     }
 }

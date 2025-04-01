@@ -3,7 +3,7 @@ package com.bnp.tennis.rest.dto;
 public class TennisPlayerDto {
     private Long id;
     private String name;
-    private Short score;
+    private Integer score;
     private Boolean advantage;
 
     public Long getId() {
@@ -22,11 +22,11 @@ public class TennisPlayerDto {
         this.name = name;
     }
 
-    public Short getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(Short score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 
