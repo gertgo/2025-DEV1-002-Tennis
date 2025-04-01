@@ -3,6 +3,8 @@ package com.bnp.tennis.application;
 import com.bnp.tennis.repository.client.TennisRepository;
 //import com.bnp.tennis.rest.dto.TennisGameDto;
 import com.bnp.tennis.rest.dto.TennisGameDto;
+import com.bnp.tennis.rest.dto.TennisPlayerDto;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -29,12 +31,40 @@ public class TennisServiceImplTest {
 
     @Test
     public void testStartNewGame() {
-        var gameId = this.restTemplate.postForObject(
+        var game = this.restTemplate.postForObject(
             "/api/tennis/newGame",
             new TennisGameDto(),
             TennisGameDto.class);
 
-        var game = tennisRepository.findById(gameId.getId());
-        assertThat(game).isNotEmpty();
+        var savedGame = tennisRepository.findById(game.getId());
+        assertThat(savedGame).isNotEmpty();
+    }
+
+    @Test
+    public void testStartGameWithPlayers() {
+        TennisGameDto request = new TennisGameDto();
+        TennisPlayerDto player1 = new TennisPlayerDto();
+        player1.setName("player1");
+        request.setPlayer1(player1);
+        TennisPlayerDto player2 = new TennisPlayerDto();
+        player2.setName("player2");
+        request.setPlayer1(player2);
+
+        var game = this.restTemplate.postForObject(
+            "/api/tennis/newGame",
+            request,
+            TennisGameDto.class);
+
+        SoftAssertions.assertSoftly(softly -> {
+            softly.assertThat(game.getPlayer1().getName()).isEqualTo(player1.getName());
+            softly.assertThat(game.getPlayer2().getName()).isEqualTo(player2.getName());
+
+            var savedGame = tennisRepository.findById(game.getId());
+            softly.assertThat(savedGame).isNotEmpty();
+            softly.assertThat(game.getPlayer1().getId()).isNotNull();
+            softly.assertThat(game.getPlayer1().getName()).isEqualTo(player1.getName());
+            softly.assertThat(game.getPlayer2().getId()).isNotNull();
+            softly.assertThat(game.getPlayer2().getName()).isEqualTo(player2.getName());
+        });
     }
 }
