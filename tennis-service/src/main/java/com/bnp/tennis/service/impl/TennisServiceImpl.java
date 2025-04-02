@@ -45,7 +45,8 @@ public class TennisServiceImpl implements TennisService {
     }
 
     private void addPoint(TennisGameEntity tennisGame, Long playerId) {
-        getPlayer(tennisGame, playerId).setScore(15);
+        var player = getPlayer(tennisGame, playerId);
+        player.setScore(getNewScore(player.getScore()));
     }
 
     private TennisPlayerEntity getPlayer(TennisGameEntity tennisGame, Long playerId) {
@@ -55,5 +56,14 @@ public class TennisServiceImpl implements TennisService {
             return tennisGame.getPlayer2();
         }
         throw new RuntimeException();
+    }
+
+    private int getNewScore(int currentScore) {
+        return switch (currentScore) {
+            case 0 -> 15;
+            case 15 -> 30;
+            case 30 -> 40;
+            default -> throw new IllegalArgumentException("Ongeldige score: " + currentScore);
+        };
     }
 }
