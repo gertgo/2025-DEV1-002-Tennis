@@ -108,12 +108,14 @@ public class TennisServiceImplTest {
         player1.setName("player1");
         player1.setScore(scorePlayer1);
         player1.setAdvantage(initialAdvantagePlayer1);
+        player1.setWin(false);
         game.setPlayer1(player1);
         TennisPlayerEntity player2 = new TennisPlayerEntity();
         player2.setId(2L);
         player2.setName("player2");
         player2.setScore(scorePlayer2);
         player2.setAdvantage(initialAdvantagePlayer2);
+        player2.setWin(false);
         game.setPlayer2(player2);
 
         return game;

@@ -8,7 +8,6 @@ import com.bnp.tennis.service.model.TennisGame;
 import org.springframework.stereotype.Service;
 import com.bnp.tennis.service.mapper.TennisGameMapper;
 import java.util.Objects;
-import com.bnp.tennis.service.model.TennisPlayer;
 
 @Service
 public class TennisServiceImpl implements TennisService {
@@ -48,7 +47,9 @@ public class TennisServiceImpl implements TennisService {
         var player = getPlayer(tennisGame, playerId);
 
         if (isAdvantage(tennisGame)) {
-            if(noAdvantageYet(tennisGame)) {
+            if(player.getAdvantage()) {
+                player.setWin(true);
+            }else if(noAdvantageYet(tennisGame)) {
                 player.setAdvantage(true);
             } else {
                 resetAdvantage(tennisGame);
