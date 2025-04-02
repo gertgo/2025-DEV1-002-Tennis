@@ -22,7 +22,7 @@ public class TennisServiceImpl implements TennisService {
 
     @Override
     public TennisGame createGame(TennisGame tennisGame) {
-        initScores(tennisGame);
+        initGame(tennisGame);
 
         return mapper.toModel(
             tennisRepository.save(
@@ -38,9 +38,13 @@ public class TennisServiceImpl implements TennisService {
             tennisRepository.save(game));
     }
 
-    private void initScores(TennisGame tennisGame) {
+    private void initGame(TennisGame tennisGame) {
         tennisGame.getPlayer1().setScore(0);
         tennisGame.getPlayer2().setScore(0);
+        tennisGame.getPlayer1().setAdvantage(false);
+        tennisGame.getPlayer2().setAdvantage(false);
+        tennisGame.getPlayer1().setWin(false);
+        tennisGame.getPlayer2().setWin(false);
     }
 
     private void addPoint(TennisGameEntity tennisGame, Long playerId) {
