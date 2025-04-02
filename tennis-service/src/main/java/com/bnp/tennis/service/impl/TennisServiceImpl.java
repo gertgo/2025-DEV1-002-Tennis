@@ -4,6 +4,7 @@ import com.bnp.tennis.repository.client.TennisRepository;
 import com.bnp.tennis.repository.model.TennisGameEntity;
 import com.bnp.tennis.repository.model.TennisPlayerEntity;
 import com.bnp.tennis.service.api.TennisService;
+import com.bnp.tennis.service.exception.PlayerNotFound;
 import com.bnp.tennis.service.model.TennisGame;
 import org.springframework.stereotype.Service;
 import com.bnp.tennis.service.mapper.TennisGameMapper;
@@ -74,7 +75,7 @@ public class TennisServiceImpl implements TennisService {
         } else if(Objects.equals(tennisGame.getPlayer2().getId(), playerId)) {
             return tennisGame.getPlayer2();
         }
-        throw new RuntimeException();
+        throw new PlayerNotFound();
     }
 
     private int getNewScore(int currentScore) {

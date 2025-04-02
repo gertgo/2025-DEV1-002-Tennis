@@ -2,6 +2,7 @@ package com.bnp.tennis.rest.api.ui;
 
 import com.bnp.tennis.rest.mapper.TennisGameDtoMapper;
 import com.bnp.tennis.rest.dto.TennisGameDto;
+import com.bnp.tennis.service.exception.PlayerNotFound;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,13 +34,12 @@ public class TennisController {
 
     @PutMapping("{gameId}/scorePoint/{playerId}")
     public ResponseEntity<TennisGameDto> scorePoint(@PathVariable Long gameId, @PathVariable Long playerId) {
-        return ResponseEntity.ok(
-            mapper.toDto(
-                tennisService.scorePoint(gameId, playerId)));
-    }
-
-    @GetMapping("/score")
-    public ResponseEntity<String> getScore() {
-        return ResponseEntity.ok("test");
+        try {
+            return ResponseEntity.ok(
+                mapper.toDto(
+                    tennisService.scorePoint(gameId, playerId)));
+        } catch (PlayerNotFound e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
