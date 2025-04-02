@@ -46,7 +46,17 @@ public class TennisServiceImpl implements TennisService {
 
     private void addPoint(TennisGameEntity tennisGame, Long playerId) {
         var player = getPlayer(tennisGame, playerId);
-        player.setScore(getNewScore(player.getScore()));
+
+        if (isAdvantage(tennisGame)) {
+            if(noAdvantageYet(tennisGame)) {
+                player.setAdvantage(true);
+            } else {
+                resetAdvantage(tennisGame);
+            }
+        } else {
+            player.setScore(getNewScore(player.getScore()));
+        }
+
     }
 
     private TennisPlayerEntity getPlayer(TennisGameEntity tennisGame, Long playerId) {
@@ -65,5 +75,19 @@ public class TennisServiceImpl implements TennisService {
             case 30 -> 40;
             default -> throw new IllegalArgumentException("Ongeldige score: " + currentScore);
         };
+    }
+
+    private boolean isAdvantage(TennisGameEntity tennisGame) {
+        return Objects.equals(tennisGame.getPlayer1().getScore(), 40)
+            && Objects.equals(tennisGame.getPlayer2().getScore(), 40);
+    }
+
+    private void resetAdvantage(TennisGameEntity tennisGame) {
+        tennisGame.getPlayer1().setAdvantage(false);
+        tennisGame.getPlayer2().setAdvantage(false);
+    }
+
+    private boolean noAdvantageYet(TennisGameEntity tennisGame) {
+        return !tennisGame.getPlayer1().getAdvantage() && !tennisGame.getPlayer2().getAdvantage();
     }
 }
