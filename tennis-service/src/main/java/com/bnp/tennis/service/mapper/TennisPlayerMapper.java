@@ -12,6 +12,7 @@ public class TennisPlayerMapper {
         entity.setName(tennisPlayer.getName());
         entity.setScore(tennisPlayer.getScore());
         entity.setAdvantage(tennisPlayer.getAdvantage());
+        entity.setWin(tennisPlayer.getWin());
         return entity;
     }
 
@@ -21,6 +22,7 @@ public class TennisPlayerMapper {
         model.setName(entity.getName());
         model.setScore(entity.getScore());
         model.setAdvantage(entity.getAdvantage());
+        model.setWin(entity.getWin());
         return model;
     }
 }

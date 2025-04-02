@@ -5,6 +5,7 @@ public class TennisPlayerDto {
     private String name;
     private Integer score;
     private Boolean advantage;
+    private Boolean win;
 
     public Long getId() {
         return id;
@@ -36,5 +37,13 @@ public class TennisPlayerDto {
 
     public void setAdvantage(Boolean advantage) {
         this.advantage = advantage;
+    }
+
+    public Boolean getWin() {
+        return win;
+    }
+
+    public void setWin(Boolean win) {
+        this.win = win;
     }
 }

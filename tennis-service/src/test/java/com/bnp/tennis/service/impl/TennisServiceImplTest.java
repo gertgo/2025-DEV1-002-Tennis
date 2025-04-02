@@ -79,6 +79,27 @@ public class TennisServiceImplTest {
         assertThat(updatedGame.getPlayer2().getAdvantage()).isEqualTo(newAdvantagePlayer2);
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "40, 40, false, false, 1, false, false",
+        "40, 40, false, false, 2, false, false",
+        "40, 40, true, false, 2, false, false",
+        "40, 40, true, false, 1, true, false",
+    })
+    public void testScorePointWin(int initialScorePlayer1, int initialScorePlayer2, boolean initialAdvantagePlayer1, boolean initialAdvantagePlayer2,
+                                        Long scoringPlayerId, boolean player1Win, boolean player2Win) {
+        TennisGameEntity game = getTennisGameEntity(initialScorePlayer1, initialScorePlayer2, initialAdvantagePlayer1, initialAdvantagePlayer2);
+        when(tennisRepository.findById(1L)).thenReturn(Optional.of(game));
+        when(tennisRepository.save(any(TennisGameEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        tennisService.scorePoint(1L, scoringPlayerId);
+
+        verify(tennisRepository).save(gameCaptor.capture());
+        TennisGameEntity updatedGame = gameCaptor.getValue();
+        assertThat(updatedGame.getPlayer1().getWin()).isEqualTo(player1Win);
+        assertThat(updatedGame.getPlayer2().getWin()).isEqualTo(player2Win);
+    }
+
     private TennisGameEntity getTennisGameEntity(int scorePlayer1, int scorePlayer2, Boolean initialAdvantagePlayer1, Boolean initialAdvantagePlayer2) {
         TennisGameEntity game = new TennisGameEntity();
         game.setId(1L);
