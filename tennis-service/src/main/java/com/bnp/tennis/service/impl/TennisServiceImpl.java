@@ -55,7 +55,11 @@ public class TennisServiceImpl implements TennisService {
                 resetAdvantage(tennisGame);
             }
         } else {
-            player.setScore(getNewScore(player.getScore()));
+            if(Objects.equals(player.getScore(), 40)) {
+                player.setWin(true);
+            } else {
+                player.setScore(getNewScore(player.getScore()));
+            }
         }
 
     }

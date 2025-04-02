@@ -85,6 +85,7 @@ public class TennisServiceImplTest {
         "40, 40, false, false, 2, false, false",
         "40, 40, true, false, 2, false, false",
         "40, 40, true, false, 1, true, false",
+        "40, 0, false, false, 1, true, false",
     })
     public void testScorePointWin(int initialScorePlayer1, int initialScorePlayer2, boolean initialAdvantagePlayer1, boolean initialAdvantagePlayer2,
                                         Long scoringPlayerId, boolean player1Win, boolean player2Win) {
