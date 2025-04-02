@@ -4,7 +4,6 @@ import com.bnp.tennis.rest.mapper.TennisGameDtoMapper;
 import com.bnp.tennis.rest.dto.TennisGameDto;
 import com.bnp.tennis.service.exception.PlayerNotFound;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
