@@ -44,7 +44,7 @@ public class TennisServiceImplTest {
         "0, 15, 2, 0, 30"
     })
     public void testScorePoint(int initialScorePlayer1, int initialScorePlayer2, Long scoringPlayerId, int newScorePlayer1, int newScorePlayer2) {
-        TennisGameEntity game = getTennisGameEntity(initialScorePlayer1, initialScorePlayer2);
+        TennisGameEntity game = getTennisGameEntity(initialScorePlayer1, initialScorePlayer2, null, null);
         when(tennisRepository.findById(1L)).thenReturn(Optional.of(game));
         when(tennisRepository.save(any(TennisGameEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -56,18 +56,43 @@ public class TennisServiceImplTest {
         assertThat(updatedGame.getPlayer2().getScore()).isEqualTo(newScorePlayer2);
     }
 
-    private TennisGameEntity getTennisGameEntity(int scorePlayer1, int scorePlayer2) {
+    @ParameterizedTest
+    @CsvSource({
+        "40, 40, false, false, 1, 40, 40, true, false",
+        "40, 40, false, false, 2, 40, 40, false, true",
+        "40, 40, true, false, 2, 40, 40, false, false"
+    })
+    public void testScorePointAdvantage(int initialScorePlayer1, int initialScorePlayer2, boolean initialAdvantagePlayer1, boolean initialAdvantagePlayer2,
+                                        Long scoringPlayerId,
+                                        int newScorePlayer1, int newScorePlayer2, boolean newAdvantagePlayer1, boolean newAdvantagePlayer2) {
+        TennisGameEntity game = getTennisGameEntity(initialScorePlayer1, initialScorePlayer2, initialAdvantagePlayer1, initialAdvantagePlayer2);
+        when(tennisRepository.findById(1L)).thenReturn(Optional.of(game));
+        when(tennisRepository.save(any(TennisGameEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        tennisService.scorePoint(1L, scoringPlayerId);
+
+        verify(tennisRepository).save(gameCaptor.capture());
+        TennisGameEntity updatedGame = gameCaptor.getValue();
+        assertThat(updatedGame.getPlayer1().getScore()).isEqualTo(newScorePlayer1);
+        assertThat(updatedGame.getPlayer2().getScore()).isEqualTo(newScorePlayer2);
+        assertThat(updatedGame.getPlayer1().getAdvantage()).isEqualTo(newAdvantagePlayer1);
+        assertThat(updatedGame.getPlayer2().getAdvantage()).isEqualTo(newAdvantagePlayer2);
+    }
+
+    private TennisGameEntity getTennisGameEntity(int scorePlayer1, int scorePlayer2, Boolean initialAdvantagePlayer1, Boolean initialAdvantagePlayer2) {
         TennisGameEntity game = new TennisGameEntity();
         game.setId(1L);
         TennisPlayerEntity player1 = new TennisPlayerEntity();
         player1.setId(1L);
         player1.setName("player1");
         player1.setScore(scorePlayer1);
+        player1.setAdvantage(initialAdvantagePlayer1);
         game.setPlayer1(player1);
         TennisPlayerEntity player2 = new TennisPlayerEntity();
         player2.setId(2L);
         player2.setName("player2");
         player2.setScore(scorePlayer2);
+        player2.setAdvantage(initialAdvantagePlayer2);
         game.setPlayer2(player2);
 
         return game;
