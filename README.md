@@ -3,9 +3,11 @@ compile + run Tennis application
 - run 'mvn clean compile'
 - run com.bnp.tennis.application.TennisApplication
 
+
 There are 2 main endpoints:
 
 --> start a new game with 2 players 
+
 POST http://localhost:8080/api/tennis/newGame
 {
   "player1": {
@@ -17,4 +19,5 @@ POST http://localhost:8080/api/tennis/newGame
 }
 
 --> one player scores a point
+
 PUT http://localhost:8080/api/tennis/{gameId}/scorePoint/{playerId}
